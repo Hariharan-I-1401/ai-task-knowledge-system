@@ -44,17 +44,21 @@ const TaskManager = () => {
 
     setSubmitting(true);
     try {
-      await api.post('/tasks', null, {
-        params: {
-          title: newTitle.trim(),
-          description: newDesc.trim(),
-          assigned_to_id: parseInt(assigneeId)
-        }
-      });
+      // 🟢 FIXED: Construct the exact JSON payload our FastAPI Pydantic schema expects
+      const payload = {
+        title: newTitle.trim(),
+        description: newDesc.trim(),
+        operator_id: parseInt(assigneeId),
+        status: "Pending"
+      };
+
+      // 🟢 FIXED: Send as the request body, not as URL query parameters
+      await api.post('/tasks', payload);
+      
       setNewTitle('');
       setNewDesc('');
       setAssigneeId('');
-      loadSystemTaskLedger(); 
+      loadSystemTaskLedger(); // Refresh the list instantly!
     } catch (err) {
       setError(err.response?.data?.detail || "Failed to assign task parameters.");
     } finally {
@@ -126,7 +130,7 @@ const TaskManager = () => {
 
             <div className="space-y-1.5">
               <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Operator Target ID</label>
-              <input required type="number" value={assigneeId} onChange={(e) => setAssigneeId(e.target.value)} placeholder="e.g. 2" className="w-full bg-[#0B0F19] border border-slate-800 focus:border-blue-500 rounded-xl px-4 py-2.5 text-xs text-white outline-none" />
+              <input required type="number" value={assigneeId} onChange={(e) => setAssigneeId(e.target.value)} placeholder="e.g. 1" className="w-full bg-[#0B0F19] border border-slate-800 focus:border-blue-500 rounded-xl px-4 py-2.5 text-xs text-white outline-none" />
             </div>
 
             <button type="submit" disabled={submitting} className="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-3 rounded-xl transition-all shadow-lg shadow-blue-600/10 mt-2">
@@ -175,7 +179,8 @@ const TaskManager = () => {
                     <div className="flex items-center space-x-3 pt-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">
                       <span>Task Link: #{task.id}</span>
                       <span>•</span>
-                      <span>Assigned Node: User ID {task.assigned_to}</span>
+                      {/* 🟢 FIXED: Map to task.operator_id matching the backend response schema */}
+                      <span>Assigned Node: User ID {task.operator_id}</span>
                     </div>
                   </div>
                 </div>

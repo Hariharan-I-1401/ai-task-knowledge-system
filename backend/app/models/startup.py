@@ -7,7 +7,7 @@ class Startup(Base):
     __tablename__ = "startups"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), unique=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
     
     # Section 1 & 2: Basic Info & Overview
     name = Column(String(100), nullable=False)

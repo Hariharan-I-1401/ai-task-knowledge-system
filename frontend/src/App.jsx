@@ -7,8 +7,9 @@ import AdminDashboard from './pages/Dashboard';
 import AIKnowledgeBase from './pages/AIKnowledgeBase'; 
 import TaskManager from './pages/TaskManager';
 import SemanticSearch from './pages/SemanticSearch';
-import Apply from './pages/Apply'; // FIXED: Import your fresh Multi-Step Form component instead of FormContainer
+import Apply from './pages/Apply'; 
 import ProtectedRoute from './components/Common/ProtectedRoute';
+import Analytics from './pages/Analytics';
 
 function App() {
   return (
@@ -31,9 +32,10 @@ function App() {
                   <Navbar />
                   <main className="flex-1 overflow-x-hidden overflow-y-auto">
                     <Routes>
-                      {/* Dashboard View Maps */}
+                      {/* Dashboard & Analytics View Maps */}
                       <Route path="/dashboard" element={<AdminDashboard />} />
-                      <Route path="/analytics" element={<AdminDashboard />} />
+                      {/* 🟢 FIXED: Linked the analytics route to your new Analytics component */}
+                      <Route path="/analytics" element={<Analytics />} />
                       
                       {/* Database & Application Tables */}
                       <Route path="/pipeline" element={<AIKnowledgeBase />} />
@@ -42,7 +44,7 @@ function App() {
                       {/* AI Search Engine Routing */}
                       <Route path="/search" element={<SemanticSearch />} />
                       
-                      {/* FIXED: Intake form routing links now point directly to your Apply component layout matrix */}
+                      {/* Intake form routing links now point directly to your Apply component layout matrix */}
                       <Route path="/apply" element={<Apply />} />
 
                       {/* Root Fallback Catchment */}

@@ -33,7 +33,7 @@ const Sidebar = () => {
 
   const links = [
     {
-      name: "Venture Pipeline",
+      name: "Dashboard",
       path: "/dashboard",
       icon: Layers,
       allowedRoles: ["Admin", "Founder"]

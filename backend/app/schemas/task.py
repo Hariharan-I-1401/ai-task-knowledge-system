@@ -2,25 +2,22 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
 
-class TaskBase(BaseModel):
+# This is what we expect from the frontend
+class TaskCreate(BaseModel):
     title: str
     description: Optional[str] = None
-    status: str = "Pending"  # Enforces structural filtering states: Pending or Completed
-    assigned_to_id: int
+    operator_id: int
     startup_id: Optional[int] = None
+    status: str = "Pending"
 
-class TaskCreate(TaskBase):
-    """Schema used during inbound payload creation."""
-    pass
-
-class TaskUpdate(BaseModel):
-    """Schema used when toggling a task from Pending to Completed."""
-    status: Optional[str] = None
-    description: Optional[str] = None
-
-class TaskResponse(TaskBase):
-    """Enforces strict, secure formatting on what data goes back to the frontend."""
+# This is what we send back to the frontend
+class TaskResponse(BaseModel):
     id: int
+    title: str
+    description: Optional[str]
+    operator_id: int
+    startup_id: Optional[int]
+    status: str
     created_at: datetime
 
     class Config:

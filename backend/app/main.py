@@ -1,7 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+# 🟢 NEW: Import your database engine, Base, and model manifest
+from app.database import engine, Base
+import app.models 
+
 from app.routers import auth, startups, search, tasks, analytics, documents 
 from app.routers import health
+
+# 🟢 NEW: This is the magic line that rebuilds the dropped MySQL tables automatically!
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="FSV Capital Institutional AI Knowledge Engine")
 
