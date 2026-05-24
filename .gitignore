@@ -1,0 +1,21 @@
+# Sensitive Environment Variables
+backend/.env
+frontend/.env
+
+# Python caching & Virtual Environments
+__pycache__/
+*.pyc
+.venv/
+env/
+
+# Node dependencies (Frontend)
+frontend/node_modules/
+frontend/dist/
+
+# Local AI Vector DB storage index binaries
+backend/vector_store/faiss_index/
+backend/storage/pitch_decks/
+
+# System files
+.DS_Store
+Thumbs.db
