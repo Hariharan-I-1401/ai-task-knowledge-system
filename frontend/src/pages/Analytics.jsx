@@ -177,7 +177,7 @@ const Analytics = () => {
                       <span className="text-indigo-400 font-mono">{percentage.toFixed(1)}% ({count})</span>
                     </div>
                     <div className="w-full bg-[#0B0F19] h-2 rounded-full overflow-hidden border border-slate-900">
-                      <div className="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full" style={{ width: `${percentage}%` }} />
+                      <div className="bg-linear-to-r from-blue-500 to-indigo-500 h-full rounded-full" style={{ width: `${percentage}%` }} />
                     </div>
                   </div>
                 );

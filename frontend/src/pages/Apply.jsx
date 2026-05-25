@@ -393,7 +393,7 @@ const Apply = () => {
             </div>
           )}
 
-          <div className="min-h-[290px]">
+          <div className="min-h-72.5">
             {currentStep === 1 && renderSection1()}
             {currentStep === 2 && renderSection2()}
             {currentStep === 3 && renderSection3()}
